@@ -29,10 +29,10 @@
 | user               | references | null: false    |
 | category_id        | integer    | null: false    |
 | situation_id       | integer    | null: false    |
-| shipping_days_id   | integer    | null: false    |
+| shipping_day_id    | integer    | null: false    |
 
 ### Association
-- belongs to :user
+- belongs_to :user
 - has_many :buys
 
 
@@ -45,8 +45,8 @@
 
 ### Association
 - has_many :addresses
-- belongs to :items
-- belongs to :user
+- belongs_to :items
+- belongs_to :user
 
 
 
@@ -57,9 +57,9 @@
 | prefecture_id      | integer    | null: false          |
 | municipalities     | string     | null: false          |
 | address            | string     | null: false          |
-| building_name      | string     |                   |
+| building_name      | string     |                      |
 | telephone          | string     | null: false          |
-| buy                | references | foreign_key: true |
+| buy                | references | null: false, foreign_key: true    |
 
 ### Association
-- belongs_to :buys
+- belongs_to :buy
