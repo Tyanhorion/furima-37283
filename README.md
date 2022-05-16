@@ -3,14 +3,14 @@
 ## users テーブル
 |Column|Type|Options|
 |------|----|-------|
-| nick_name             | string | NOT null     |
-| email                 | string | unique: true |
-| encrypted_password    | string | NOT null     |
-| birthday              | date   | NOT null     |
-| last_name             | string | NOT null     |
-| first_name            | string | NOT null     |
-| last_name_kana        | string | NOT null     |
-| first_name_kana       | string | NOT null     |
+| nick_name             | string | null: false     |
+| email                 | string | null: false, unique: true |
+| encrypted_password    | string | null: false     |
+| birthday              | date   | null: false     |
+| last_name             | string | null: false     |
+| first_name            | string | null: false     |
+| last_name_kana        | string | null: false     |
+| first_name_kana       | string | null: false     |
 
 ### Association
 - has_many :items
@@ -21,31 +21,31 @@
 ##　items テーブル
 |Column|Type|Options|
 |------|----|-------|
-| item_name          | string     | NOT null    |
-| explanation        | text       | NOT null    |
-| price              | integer    | NOT null    |
-| delivery_id        | integer    | NOT null    |
-| areas_id           | integer    | NOT null    |
-| user               | references | NOT null    |
-| category_id        | integer    | NOT null    |
-| situation_id       | integer    | NOT null    |
-| days_id            | integer    | NOT null    |
+| item_name          | string     | null: false    |
+| explanation        | text       | null: false    |
+| price              | integer    | null: false    |
+| delivery_id        | integer    | null: false    |
+| prefecture_id      | integer    | null: false    |
+| user               | references | null: false    |
+| category_id        | integer    | null: false    |
+| situation_id       | integer    | null: false    |
+| shipping_days_id   | integer    | null: false    |
 
 ### Association
 - belongs to :user
-- belongs to :buys
+- has_many :buys
 
 
 
 ## buys テーブル
 |Column|Type|Options|
 |------|----|-------|
-| item               | references | NOT null, foreign_key: true    |
-| user               | references | NOT null, foreign_key: true    |
+| item               | references | null: false, foreign_key: true    |
+| user               | references | null: false, foreign_key: true    |
 
 ### Association
-- has_many :items
-- belongs to :addresses
+- has_many :addresses
+- belongs to :items
 - belongs to :user
 
 
@@ -53,14 +53,13 @@
 ## addresses テーブル
 |Column|Type|Options|
 |------|----|-------|
-| postal_code        | string     | NOT null          |
-| prefectures_id     | integer    | NOT null          |
-| municipalities     | string     | NOT null          |
-| address            | string     | NOT null          |
+| postal_code        | string     | null: false          |
+| prefecture_id      | integer    | null: false          |
+| municipalities     | string     | null: false          |
+| address            | string     | null: false          |
 | building_name      | string     |                   |
-| telephone          | string     | NOT null          |
-| buys               | references | foreign_key: true |
+| telephone          | string     | null: false          |
+| buy                | references | foreign_key: true |
 
 ### Association
-- has_many :items
-- belongs to :user
+- belongs_to :buys
