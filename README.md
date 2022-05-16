@@ -3,41 +3,45 @@
 ## users テーブル
 |Column|Type|Options|
 |------|----|-------|
-| name                  | string | NOT null    |
-| nick_name             | string | NOT null    |
-| email     　　　　　　  | string | unique: true    |
-| encrypted_password    | string | NOT null    |
-| birthday              | string | NOT null    |
+| nick-name             | string | NOT null     |
+| email                 | string | unique: true |
+| encrypted-password    | string | NOT null     |
+| birthday              | date   | NOT null     |
+| last-name             | string | NOT null     |
+| first-name            | string | NOT null     |
+| last-name-kana        | string | NOT null     |
+| first-name-kana       | string | NOT null     |
 
-
-
-
-##　item テーブル
+##　items テーブル
 |Column|Type|Options|
 |------|----|-------|
-| item_name          | string | NOT null    |
-| image              | string | NOT null    |
-| explanation        | string | NOT null    |
-| price              | string | NOT null    |
-| delivery           | string | NOT null    |
-| areas              | string | NOT null    |
+| item-name          | string     | NOT null    |
+| explanation        | text       | NOT null    |
+| price              | integer    | NOT null    |
+| delivery_id        | integer    | NOT null    |
+| areas_id           | integer    | NOT null    |
 | user               | references | NOT null    |
-| category           | string | NOT null    |
-| situation          | string | NOT null    |
-| days               | string | NOT null    |
+| category_id        | integer    | NOT null    |
+| situation_id       | integer    | NOT null    |
+| days_id            | integer    | NOT null    |
 
 
 
 
-## buy テーブル
+## buys テーブル
 |Column|Type|Options|
 |------|----|-------|
-| item               | references | NOT null, foreign_key: true    |
+| items              | references | NOT null, foreign_key: true    |
 | user               | references | NOT null, foreign_key: true    |
 
-## address テーブル
+## addresses テーブル
 |Column|Type|Options|
 |------|----|-------|
+| postal-code        | string | NOT null    |
+| prefectures        | string | NOT null    |
+| municipalities     | string | NOT null    |
 | address            | string | NOT null    |
-| tel                | string | NOT null    |
-| user               | references | NOT null, foreign_key: true    |
+| building-name      | string | NOT null    |
+| telephone          | string | NOT null    |
+| user               | references | NOT null, foreign_key: true |
+| buys               | references | NOT null, foreign_key: true |
