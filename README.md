@@ -3,19 +3,25 @@
 ## users テーブル
 |Column|Type|Options|
 |------|----|-------|
-| nick-name             | string | NOT null     |
+| nick_name             | string | NOT null     |
 | email                 | string | unique: true |
-| encrypted-password    | string | NOT null     |
+| encrypted_password    | string | NOT null     |
 | birthday              | date   | NOT null     |
-| last-name             | string | NOT null     |
-| first-name            | string | NOT null     |
-| last-name-kana        | string | NOT null     |
-| first-name-kana       | string | NOT null     |
+| last_name             | string | NOT null     |
+| first_name            | string | NOT null     |
+| last_name_kana        | string | NOT null     |
+| first_name_kana       | string | NOT null     |
+
+### Association
+- has_many :items
+- has_many :buys
+
+
 
 ##　items テーブル
 |Column|Type|Options|
 |------|----|-------|
-| item-name          | string     | NOT null    |
+| item_name          | string     | NOT null    |
 | explanation        | text       | NOT null    |
 | price              | integer    | NOT null    |
 | delivery_id        | integer    | NOT null    |
@@ -25,23 +31,36 @@
 | situation_id       | integer    | NOT null    |
 | days_id            | integer    | NOT null    |
 
+### Association
+- belongs to :user
+- belongs to :buys
 
 
 
 ## buys テーブル
 |Column|Type|Options|
 |------|----|-------|
-| items              | references | NOT null, foreign_key: true    |
+| item               | references | NOT null, foreign_key: true    |
 | user               | references | NOT null, foreign_key: true    |
+
+### Association
+- has_many :items
+- belongs to :addresses
+- belongs to :user
+
+
 
 ## addresses テーブル
 |Column|Type|Options|
 |------|----|-------|
-| postal-code        | string | NOT null    |
-| prefectures        | string | NOT null    |
-| municipalities     | string | NOT null    |
-| address            | string | NOT null    |
-| building-name      | string | NOT null    |
-| telephone          | string | NOT null    |
-| user               | references | NOT null, foreign_key: true |
-| buys               | references | NOT null, foreign_key: true |
+| postal_code        | string     | NOT null          |
+| prefectures_id     | integer    | NOT null          |
+| municipalities     | string     | NOT null          |
+| address            | string     | NOT null          |
+| building_name      | string     |                   |
+| telephone          | string     | NOT null          |
+| buys               | references | foreign_key: true |
+
+### Association
+- has_many :items
+- belongs to :user
