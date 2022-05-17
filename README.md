@@ -18,7 +18,7 @@
 
 
 
-##　items テーブル
+## items テーブル
 |Column|Type|Options|
 |------|----|-------|
 | item_name          | string     | null: false    |
@@ -33,7 +33,7 @@
 
 ### Association
 - belongs_to :user
-- has_many :buys
+- has_one :buys
 
 
 
@@ -44,7 +44,7 @@
 | user               | references | null: false, foreign_key: true    |
 
 ### Association
-- has_many :addresses
+- has_one :addresses
 - belongs_to :item
 - belongs_to :user
 
