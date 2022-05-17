@@ -33,7 +33,7 @@
 
 ### Association
 - belongs_to :user
-- has_one :buys
+- has_one :buy
 
 
 
@@ -44,7 +44,7 @@
 | user               | references | null: false, foreign_key: true    |
 
 ### Association
-- has_one :addresses
+- has_one :address
 - belongs_to :item
 - belongs_to :user
 
