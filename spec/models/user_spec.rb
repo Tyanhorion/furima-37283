@@ -6,10 +6,7 @@ RSpec.describe User, type: :model do
   end
   
   describe 'ユーザー新規登録' do
-    context 'ユーザー新規登録ができない時' do 
-      it 'nickname、email、password、password_confirmation、last_name、first_name、last_name_kana、first_name_kanaが存在すれば登録できる' do
-        expect(@user).to be_valid
-      end
+    context 'ユーザー新規登録ができない時' do
       it 'nicknameが空では登録できない' do
         @user.nick_name = ''
         @user.valid?
@@ -108,6 +105,32 @@ RSpec.describe User, type: :model do
         @user.first_name_kana = "tarou"
         @user.valid?
         expect(@user.errors.full_messages).to include("First name kana 全角カタカナを使用してください")
+      end
+    end
+    context 'ユーザー新規登録ができる時' do
+      it 'nickname、email、password、password_confirmation、last_name、first_name、last_name_kana、first_name_kanaが存在すれば登録できる' do
+        expect(@user).to be_valid
+      end
+      it 'passwordが6文字以上の半角英数字混合であれば登録できる' do
+        @user.password = '000aaa'
+        @user.password_confirmation = '000aaa'
+        expect(@user).to be_valid
+      end
+      it 'last_nameが全角文字であれば登録できる' do
+        @user.last_name = "山田"
+        expect(@user).to be_valid
+      end
+      it 'first_nameが全角文字であれば登録できる' do
+        @user.first_name = "太郎"
+        expect(@user).to be_valid
+      end
+      it 'last_name_kanaが全角カナであれば登録できる' do
+        @user.last_name_kana = "ヤマダ"
+        expect(@user).to be_valid
+      end
+      it 'first_name_kanaが全角カナであれば登録できる' do
+        @user.first_name_kana = "タロウ"
+        expect(@user).to be_valid
       end
     end
   end
