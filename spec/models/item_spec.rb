@@ -53,9 +53,9 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Shipping day can't be blank")
       end
       it '価格は半角数値でなければ登録出来ない' do
-        @item.price = 1231
+        @item.price = 'アイウエオ'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Priceは半角数字を使用してください")
+        expect(@item.errors.full_messages).to include("Price is not a number")
       end
       it 'userが紐付いていなければ出品できない' do
         @item.user = nil
