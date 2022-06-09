@@ -59,7 +59,7 @@
 | address            | string     | null: false |
 | building_name      | string     | null: false |
 | telephone          | string     |             |
-|                 | references | null: false, foreign_key: true    |
+| buy                | references | null: false, foreign_key: true    |
 
 ### Association
 - belongs_to :buy
