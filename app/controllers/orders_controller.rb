@@ -2,6 +2,9 @@ class OrdersController < ApplicationController
   def index
     @item = Item.find(params[:item_id])
     @buy_address = BuyAddress.new
+    if @item.buy.present?
+      redirect_to root_path
+    end
   end
 
   def create
