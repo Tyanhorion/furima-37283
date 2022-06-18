@@ -19,7 +19,9 @@ RSpec.describe BuyAddress, type: :model do
         @buy_address.telephone = "09012345678"
         expect(@buy_address).to be_valid
       end
-
+      it 'tokenがあれば保存ができる' do
+        expect(@buy_address).to be_valid
+      end
     end
 
     context '登録できない場合' do
@@ -59,6 +61,11 @@ RSpec.describe BuyAddress, type: :model do
         @buy_address.telephone = "090-1234-5678"
         @buy_address.valid?
         expect(@buy_address.errors.full_messages).to include("Telephone is too long (maximum is 11 characters)")
+      end
+      it "tokenが空では登録できないこと" do
+        @buy_address.token = nil
+        @buy_address.valid?
+        expect(@buy_address.errors.full_messages).to include("Token can't be blank")
       end
     end
   end
