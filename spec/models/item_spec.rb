@@ -32,22 +32,22 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Category can't be blank")
       end
-      it'deliveryがないと登録出来ない' do
+      it 'deliveryがないと登録出来ない' do
         @item.delivery_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Delivery can't be blank")
       end
-      it'prefectureがないと登録出来ない' do
+      it 'prefectureがないと登録出来ない' do
         @item.prefecture_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Prefecture can't be blank")
       end
-      it'situationがないと登録出来ない' do
+      it 'situationがないと登録出来ない' do
         @item.situation_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Situation can't be blank")
       end
-      it'shipping_dayがないと登録出来ない' do
+      it 'shipping_dayがないと登録出来ない' do
         @item.shipping_day_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Shipping day can't be blank")
@@ -55,22 +55,22 @@ RSpec.describe Item, type: :model do
       it '価格は半角数値でなければ登録出来ない' do
         @item.price = 'アイウエオ'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is not a number")
+        expect(@item.errors.full_messages).to include('Price is not a number')
       end
       it 'userが紐付いていなければ出品できない' do
         @item.user = nil
         @item.valid?
-        expect(@item.errors.full_messages).to include("User must exist")
+        expect(@item.errors.full_messages).to include('User must exist')
       end
       it 'priceが￥300より少ない時は出品できない' do
         @item.price = 299
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price must be greater than or equal to 300")
+        expect(@item.errors.full_messages).to include('Price must be greater than or equal to 300')
       end
       it 'priceが￥9999999以上では出品できない' do
-      @item.price = 10_000_000
-      @item.valid?
-      expect(@item.errors.full_messages).to include('Price must be less than or equal to 9999999')
+        @item.price = 10_000_000
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price must be less than or equal to 9999999')
       end
     end
   end
