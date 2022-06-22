@@ -53,12 +53,12 @@
 ## addresses テーブル
 |Column|Type|Options|
 |------|----|-------|
-| postal_code        | string     | null: false          |
-| prefecture_id      | integer    | null: false          |
-| municipalities     | string     | null: false          |
-| address            | string     | null: false          |
-| building_name      | string     |                      |
-| telephone          | string     | null: false          |
+| postal_code        | string     | null: false |
+| prefecture_id      | integer    | null: false |
+| municipalities     | string     | null: false |
+| address            | string     | null: false |
+| building_name      | string     |             |
+| telephone          | string     | null: false |
 | buy                | references | null: false, foreign_key: true    |
 
 ### Association

@@ -7,7 +7,7 @@ class ItemsController < ApplicationController
   end
 
   def new
-     @item = Item.new
+    @item = Item.new
   end
 
   def create
@@ -23,9 +23,7 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    if current_user == @item.user
-      redirect_to edit_item_path
-    else
+    if @item.buy.present? || current_user != @item.user
       redirect_to root_path
     end
   end
@@ -47,11 +45,11 @@ class ItemsController < ApplicationController
     end
   end
 
-
-
   private
+
   def item_params
-    params.require(:item).permit(:item_name, :explanation, :price, :delivery_id, :prefecture_id, :category_id, :situation_id, :shipping_day_id, :image).merge(user_id: current_user.id)
+    params.require(:item).permit(:item_name, :explanation, :price, :delivery_id, :prefecture_id, :category_id, :situation_id,
+                                 :shipping_day_id, :image).merge(user_id: current_user.id)
   end
 
   def set_item
