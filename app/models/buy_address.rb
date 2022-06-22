@@ -8,7 +8,7 @@ class BuyAddress
     validates :user_id
     validates :municipalities
     validates :address
-    validates :telephone, length: { maximum: 11 }
+    validates :telephone, length: { in: 10..11 }
     validates :prefecture_id, numericality: { other_than: 0, message: "can't be blank" }
     validates :token
   end

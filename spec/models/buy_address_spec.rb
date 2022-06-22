@@ -4,7 +4,9 @@ RSpec.describe BuyAddress, type: :model do
   describe '配送先情報の登録' do
     before do
       user = FactoryBot.create(:user)
-      @buy_address = FactoryBot.build(:buy_address, user_id: user.id)
+      item = FactoryBot.create(:item)
+      sleep(1)
+      @buy_address = FactoryBot.build(:buy_address, user_id: user.id, item_id: item.id)
     end
 
     context '登録できる場合' do
@@ -61,25 +63,20 @@ RSpec.describe BuyAddress, type: :model do
         expect(@buy_address.errors.full_messages).to include('Postal code is invalid. Include hyphen(-)')
       end
       it '電話番号が9桁以下では購入できない' do
-        @buy_address.telephone = ''
+        @buy_address.telephone = '12345678'
         @buy_address.valid?
-        expect(@buy_address.errors.full_messages).to include("Telephone can't be blank")
+        expect(@buy_address.errors.full_messages).to include("Telephone is too short (minimum is 10 characters)")
       end
       it '電話番号が12桁以上では購入できない' do
-        @buy_address.telephone = '123-45678-91234'
+        @buy_address.telephone = '123456789123'
         @buy_address.valid?
         expect(@buy_address.errors.full_messages).to include('Telephone is too long (maximum is 11 characters)')
       end
       it '電話番号に半角数字以外が含まれている場合は購入できない' do
-        @buy_address.telephone = 'qwe-1234-5678'
+        @buy_address.telephone = '123-1234-5a78'
         @buy_address.valid?
         expect(@buy_address.errors.full_messages).to include('Telephone is too long (maximum is 11 characters)')
       end
-      # it 'telephoneは10桁以上11桁以内の半角数値のみでないと登録できない' do
-      #   @buy_address.telephone = '090-1234-5678'
-      #   @buy_address.valid?
-      #   expect(@buy_address.errors.full_messages).to include('Telephone is too long (maximum is 11 characters)')
-      # end
       it 'tokenが空では登録できないこと' do
         @buy_address.token = nil
         @buy_address.valid?
