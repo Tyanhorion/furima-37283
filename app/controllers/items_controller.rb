@@ -3,7 +3,7 @@ class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
 
   def index
-    @items = Item.all.order(created_at: :desc)
+    @items = Item.all.order('created_at DESC')
   end
 
   def new
@@ -41,7 +41,7 @@ class ItemsController < ApplicationController
     if @item.update(item_params)
       redirect_to item_path(@item)
     else
-      render edit_item_path
+      render :edit
     end
   end
 
