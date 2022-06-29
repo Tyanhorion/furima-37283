@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!, only: [:index, :create]
   before_action :item_info, only: [:index, :create]
+
   def index
     @buy_address = BuyAddress.new
     redirect_to root_path if @item.buy.present? || current_user == @item.user
@@ -11,13 +12,18 @@ class OrdersController < ApplicationController
     if @buy_address.valid?
       pay_item
       @buy_address.save
-      redirect_to root_path
+      return redirect_to root_path
     else
       render :index
     end
   end
 
+
   private
+
+  def item_info
+    @item = Item.find(params[:item_id])
+  end
 
   def order_params
     params.require(:buy_address).permit(:postal_code, :prefecture_id, :municipalities, :address, :building_name, :telephone, :buy_id).merge(
@@ -32,9 +38,5 @@ class OrdersController < ApplicationController
       card: order_params[:token],
       currency: 'jpy'
     )
-  end
-
-  def item_info
-    @item = Item.find(params[:item_id])
   end
 end
